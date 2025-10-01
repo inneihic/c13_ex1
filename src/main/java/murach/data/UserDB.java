@@ -17,7 +17,7 @@ public class UserDB {
             em.persist(user);
             trans.commit();
         } catch (Exception e) {
-            System.out.pr intln(e);
+            System.out.println(e);
             if (trans.isActive()) {
                 trans.rollback();
             }
