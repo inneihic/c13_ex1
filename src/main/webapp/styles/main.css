@@ -2,7 +2,7 @@
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
-    padding: 20px; /* Thêm padding nhẹ để tránh sát mép */
+    padding: 20px;
     background: linear-gradient(135deg, #d9fbe3, #b2f2e6); /* xanh lá pha ngọc nhạt */
     min-height: 100vh;
     display: flex;
@@ -10,7 +10,7 @@ body {
     align-items: center;
 }
 
-/* ===== Khung bao tổng (wrap toàn bộ nội dung) ===== */
+/* ===== Khung bao tổng (một box duy nhất cho tất cả) ===== */
 .container {
     background: #ffffff;
     padding: 2.5em 3em;
@@ -18,7 +18,7 @@ body {
     box-shadow: 0 8px 25px rgba(0, 128, 0, 0.15);
     max-width: 450px;
     width: 100%;
-    text-align: center;
+    text-align: center; /* Căn giữa tổng thể */
 }
 
 /* ===== Tiêu đề chính ===== */
@@ -30,38 +30,48 @@ h1 {
     display: block;
 }
 
-/* ===== Mô tả phụ (style trực tiếp <p>, buộc wrap và tách cách) ===== */
+/* ===== Mô tả phụ (style <p>, wrap và giảm margin để dính với form) ===== */
 p {
     font-size: 1em;
     color: #004d40;
-    margin-bottom: 2em; /* Tăng khoảng cách lớn để xuống dòng rõ ràng trước form */
-    line-height: 1.6; /* Tăng để văn bản dễ đọc khi wrap */
-    white-space: normal; /* Buộc wrap tự nhiên */
-    word-wrap: break-word; /* Ngắt từ nếu cần */
-    hyphens: auto; /* Ngắt âm tiết tự động */
-    max-width: 320px; /* Giới hạn width để văn bản dài tự wrap thành 2 dòng */
+    margin-bottom: 1.5em; /* Giảm từ 2em để sát form hơn, vẫn tách rõ */
+    line-height: 1.6;
+    white-space: normal;
+    word-wrap: break-word;
+    hyphens: auto;
+    max-width: 320px;
     margin-left: auto;
-    margin-right: auto; /* Căn giữa <p> */
+    margin-right: auto;
     text-align: center;
 }
 
-/* ===== Message (nếu có) ===== */
-p i {
-    color: #ff9800; /* Màu nổi bật cho ${message} */
+p i { /* Message */
+    color: #ff9800;
     font-style: italic;
+    display: block;
+    margin-bottom: 1em; /* Tách message nếu có */
 }
 
-/* ===== Nhãn (label) & ô nhập ===== */
+/* ===== Form (dính sát với text, no extra margin) ===== */
+form {
+    text-align: left; /* Labels left-align */
+    margin: 0; /* Không margin ngoài để dính với <p> */
+    width: 100%;
+}
+
+/* ===== Nhãn (label) & ô nhập (spacing chặt chẽ) ===== */
 label {
     display: block;
     text-align: left;
     font-weight: 600;
     color: #004d40;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.5em; /* Tăng nhẹ để label-input rõ ràng, nhưng không tách khung */
+    margin-top: 0.5em; /* Spacing trên label nếu cần */
 }
 
-label.pad_top { /* Style cho class="pad_top" */
-    padding-top: 1em; /* Giả định pad_top là padding-top, điều chỉnh nếu cần */
+label.pad_top {
+    padding-top: 0; /* Override pad_top để không tạo khoảng trống lớn */
+    margin-top: 0.8em; /* Dùng margin thay vì padding để kiểm soát */
 }
 
 input[type="text"],
@@ -72,9 +82,9 @@ input[type="email"] {
     border-radius: 8px;
     font-size: 1em;
     transition: border-color 0.3s, box-shadow 0.3s;
-    margin-bottom: 1em;
+    margin-bottom: 0.8em; /* Giảm margin để input dính sát nhau */
     display: block;
-    box-sizing: border-box; /* Padding không làm vượt width */
+    box-sizing: border-box;
 }
 
 input[type="text"]:focus,
@@ -84,7 +94,7 @@ input[type="email"]:focus {
     box-shadow: 0 0 6px rgba(38, 166, 154, 0.4);
 }
 
-/* ===== Nút bấm ===== */
+/* ===== Nút bấm (căn giữa, full width để unify) ===== */
 input[type="submit"] {
     background-color: #43a047;
     color: white;
@@ -93,18 +103,18 @@ input[type="submit"] {
     border-radius: 8px;
     font-size: 1em;
     cursor: pointer;
-    margin-top: 0.5em;
+    margin-top: 1em; /* Spacing trên nút */
+    margin-bottom: 0;
     transition: background-color 0.3s, transform 0.2s;
     display: block;
     margin-left: auto;
-    margin-right: auto; /* Căn giữa nút */
-    width: 100%; /* Full width để đồng bộ */
+    margin-right: auto;
+    width: 100%; /* Full width để khớp với input */
 }
 
-input[type="submit"].margin_left { /* Style cho class="margin_left" */
-    margin-left: 0; /* Override nếu cần, căn giữa thay vì left */
-    width: auto; /* Không full width nếu muốn nhỏ gọn */
-    display: inline-block; /* Giữ inline nếu cần */
+input[type="submit"].margin_left {
+    margin-left: 0;
+    width: 100%; /* Giữ full để unify */
 }
 
 input[type="submit"]:hover {
@@ -112,15 +122,13 @@ input[type="submit"]:hover {
     transform: translateY(-1px);
 }
 
-/* ===== Span trong thanks.jsp ===== */
-span {
+/* ===== Span trong thanks.jsp (style để dính với label) ===== */
+label + span { /* Span ngay sau label */
+    display: inline-block;
     font-weight: 500;
     color: #00695c;
-}
-
-/* ===== Form chung ===== */
-form {
-    text-align: left; /* Form align left cho labels, nhưng container center tổng */
+    margin-left: 0.5em; /* Khoảng cách nhỏ với label */
+    margin-bottom: 0.8em; /* Giống input */
 }
 
 /* ===== Responsive ===== */
@@ -129,7 +137,7 @@ form {
         padding: 10px;
     }
     .container {
-        padding: 1.8em;
+        padding: 1.8em 1.5em;
         width: 95%;
     }
     h1 {
@@ -137,8 +145,8 @@ form {
     }
     p {
         font-size: 0.95em;
-        max-width: 280px; /* Wrap chặt hơn trên mobile */
-        margin-bottom: 1.5em;
+        max-width: 280px;
+        margin-bottom: 1.2em; /* Giảm thêm trên mobile */
     }
     input[type="submit"] {
         width: 100%;
