@@ -27,14 +27,18 @@ h1 {
     font-weight: bold;
     color: #00695c; /* xanh ngọc đậm */
     margin-bottom: 0.3em;
+    display: block; /* Đảm bảo tiêu đề trên dòng riêng */
 }
 
 /* ===== Mô tả phụ bên dưới tiêu đề ===== */
 p.subtitle {
     font-size: 1em;
     color: #004d40;
-    margin-bottom: 1.8em;
-    line-height: 1.4;
+    margin-bottom: 2em; /* Tăng khoảng cách để xuống dòng rõ ràng trước khung nhập liệu */
+    line-height: 1.6; /* Tăng line-height để văn bản tự động xuống dòng tự nhiên */
+    white-space: normal; /* Đảm bảo văn bản không bị ép một dòng, cho phép wrap */
+    word-wrap: break-word; /* Cho phép ngắt từ nếu cần */
+    display: block; /* Đảm bảo phần mô tả trên dòng riêng biệt */
 }
 
 /* ===== Nhãn & ô nhập ===== */
@@ -55,6 +59,7 @@ input[type="email"] {
     font-size: 1em;
     transition: border-color 0.3s, box-shadow 0.3s;
     margin-bottom: 1em;
+    display: block; /* Đảm bảo mỗi ô nhập trên dòng riêng */
 }
 
 input[type="text"]:focus,
@@ -76,6 +81,9 @@ input[type="submit"] {
     cursor: pointer;
     margin-top: 0.5em;
     transition: background-color 0.3s, transform 0.2s;
+    display: block; /* Đảm bảo nút trên dòng riêng */
+    margin-left: auto;
+    margin-right: auto; /* Căn giữa nút nếu cần */
 }
 
 button:hover,
@@ -101,5 +109,9 @@ a:hover {
     }
     h1 {
         font-size: 1.5em;
+    }
+    p.subtitle {
+        font-size: 0.95em;
+        margin-bottom: 1.5em;
     }
 }
